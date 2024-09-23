@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keksi Fashion Wears</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Keksi Fashion</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+       
+    </nav>
+
+    <section class="hero d-flex align-items-center text-white text-center" id="home">
+        <div class="container">
+            <h1 class="display-4">Express Your Style with Keksi Fashion</h1>
+            <p class="lead">Discover high-quality, sustainable fashion that reflects your unique style.</p>
+            <a href="register.html" class="btn btn-primary btn-lg">Sign Up</a>
+            <a href="login.html" class="btn btn-secondary btn-lg">Login</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-5 text-center">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Keksi Fashion Wears offers a range of high-quality, hand-stitched clothes made from recycled materials. Our goal is to provide fashionable clothing that makes you look great and feel good about contributing to a better environment.</p>
+        </div>
+    </section>
+
+    <div class="container mt-5 pt-4">
+        <h1 class="text-center mb-4">Featured Products</h1>
+        <div id="product-cards" class="row"></div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="product_page.html" class="btn btn-secondary btn-lg">View More</a>
+    </div>
+ 
+
+    <section id="testimonials" class="py-5 text-center">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p class="mb-0">"The quality of the clothes is amazing, and I love that they are eco-friendly!"</p>
+                        <footer class="blockquote-footer">Jane Doe</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p class="mb-0">"Keksi Fashion Wears always has the latest trends. I get compliments every time I wear their clothes."</p>
+                        <footer class="blockquote-footer">John Smith</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p class="mb-0">"Great selection of high-quality, hand-stitched clothing. My favorite store!"</p>
+                        <footer class="blockquote-footer">Emily Johnson</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-light py-5 text-center">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to us!</p>
+            <a href="mailto:info@keksi.com" class="btn btn-primary">Email Us</a>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+
+
+    <script>
+        async function loadHTML() {
+            try {
+                const footerResponse = await fetch('footer.html');
+                
+              
+                if (footerResponse.ok) {
+                    const footerHTML = await footerResponse.text();
+                    document.getElementById('footer').innerHTML = footerHTML;
+                }
+            } catch (error) {
+                console.error('Error loading HTML:', error);
+            }
+        }
+
+        loadHTML();
+    </script>
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+    fetch('php/fetch_products.php')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('product-cards');
+            const limitedData = data.slice(0, 3);
+            container.innerHTML = limitedData.map(product => `
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="${product.images[0] || 'default-image.jpg'}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.description}</p>
+                            <p class="card-text"><strong>Price:</strong> $${product.price}</p>
+                            <p class="card-text"><strong>Category:</strong> ${product.category}</p>
+                            <p class="card-text"><strong>Stock:</strong> ${product.stock}</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        })
+        .catch(error => console.error('Error fetching products:', error));
+});
+
+</script>
+
+</body>
+</html>

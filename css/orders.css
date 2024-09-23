@@ -1,0 +1,30 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+.navbar {
+    margin-bottom: 20px;
+}
+.order-item {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+.order-item:hover {
+    transform: scale(1.02);
+}
+.card-body {
+    padding: 20px;
+}
+.card-title {
+    font-size: 1.25rem;
+    color: #007bff;
+}
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.container {
+    max-width: 960px;
+}
